@@ -1,0 +1,62 @@
+﻿<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Equipment extends Model
+{
+    use HasFactory;
+
+    protected $table = 'equipment';
+    
+    protected $primaryKey = 'id';
+    
+    public $incrementing = true;
+    
+    protected $keyType = 'int';
+    
+    public $timestamps = true;
+    
+    protected $fillable = [
+        'equipment_type',
+        'scada_code', 
+        'switch_brand',
+        'modem_brand',
+        'rtu_brand',
+        'installation_type',
+        'start_time',
+        'end_time',
+        'feeders',
+        'location_data',
+        'communication_data',
+        'checklist_data',
+        'activities_data',
+        'consumables_data',
+        'photos_data',
+        'department_data',
+        'cell_specs',
+        'tabs_validated'
+    ];
+    
+    protected $casts = [
+        'feeders' => 'array',
+        'location_data' => 'array',
+        'communication_data' => 'array',
+        'checklist_data' => 'array',
+        'activities_data' => 'array',
+        'consumables_data' => 'array',
+        'photos_data' => 'array',
+        'department_data' => 'array',
+        'cell_specs' => 'array',
+        'tabs_validated' => 'array',
+        'start_time' => 'datetime:H:i',
+        'end_time' => 'datetime:H:i'
+    ];
+    
+    protected $attributes = [
+        'start_time' => '08:00:00',
+        'end_time' => '16:00:00'
+    ];
+}

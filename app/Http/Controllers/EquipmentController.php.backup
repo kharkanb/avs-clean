@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Equipment;
+use Illuminate\Http\Request;
+
+class EquipmentController extends Controller
+{
+    public function index()
+    {
+        return Equipment::all();
+    }
+    public function index() {
+        return Equipment::all();
+    }
+
+    public function store(Request \) {
+        \ = \->validate([]);
+        return Equipment::create(\);
+    }
+
+    public function show(\) {
+        return Equipment::findOrFail(\);
+    }
+
+    public function update(Request \, \) {
+        \ = Equipment::findOrFail(\);
+        \->update(\->validate([]));
+        return \;
+    }
+
+    public function destroy(\) {
+        Equipment::findOrFail(\)->delete();
+        return response()->noContent();
+    }
+}

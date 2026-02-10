@@ -1,0 +1,37 @@
+#قبل از اجرای این اسکریپت، سرور لاراول باید با php artisan serve --port=8000 اجرا شده باشد.
+
+# مسیر پروژه
+$projectPath = "C:\Users\dear-user\Desktop\avs-clean"
+
+# همه API ها
+$apis = @{
+    "equipment-types" = "$projectPath/api/equipment-types"
+    "posts" = "$projectPath/api/posts"
+    "checklist-template/1" = "$projectPath/api/checklist-template/1"
+    "activity-price-list" = "$projectPath/api/activity-price-list"
+    "consumables" = "$projectPath/api/consumables"
+    "brands" = "$projectPath/api/brands"
+}
+
+# سرور لاراول حتما باید در پورت 8000 اجرا شده باشه
+$baseUrl = "http://127.0.0.1:8000/api"
+
+# تست هر API
+foreach ($key in $apis.Keys) {
+    $url = "$baseUrl/$key"
+    Write-Host "`n🌐 Testing API: $url" -ForegroundColor Cyan
+    try {
+        $response = Invoke-RestMethod -Uri $url -Method Get -ErrorAction Stop
+        if ($response -is [System.Collections.IEnumerable]) {
+            $count = $response.Count
+        } elseif ($response.data -is [System.Collections.IEnumerable]) {
+            $count = $response.data.Count
+        } else {
+            $count = 1
+        }
+        Write-Host "✅ API responded successfully. Items count: $count" -ForegroundColor Green
+    } catch {
+        Write-Host "❌ API failed or returned 404" -ForegroundColor Red
+        Write-Host "Error details: $_"
+    }
+}
